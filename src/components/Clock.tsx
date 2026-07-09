@@ -9,16 +9,16 @@ export default function Clock() {
   }, [])
 
   const time = now.toLocaleTimeString('es-CO', { hour12: false })
-  const date = now.toLocaleDateString('es-CO', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-  })
+  const date = now
+    .toLocaleDateString('es-CO', { weekday: 'short', day: 'numeric', month: 'short' })
+    .replace(',', '')
+    .replace('.', '')
 
   return (
-    <div className="text-right text-sm text-blue-200">
-      <span className="block font-medium tabular-nums text-white">{time}</span>
-      <span className="text-xs">{date}</span>
-    </div>
+    <span className="tabular-nums text-gray-500">
+      <span>{date}</span>
+      <span className="mx-1.5 text-gray-300">·</span>
+      <span className="font-semibold text-gray-800">{time}</span>
+    </span>
   )
 }

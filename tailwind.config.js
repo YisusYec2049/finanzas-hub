@@ -3,6 +3,21 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      // Pila tipográfica de sistema de macOS (San Francisco), con
+      // fallbacks razonables en otros SO.
+      fontFamily: {
+        sans: [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"SF Pro Display"',
+          '"SF Pro Text"',
+          '"Segoe UI"',
+          'Roboto',
+          'Helvetica',
+          'Arial',
+          'sans-serif',
+        ],
+      },
       // Igual que support-tickets/tailwind.config.js — misma sensación
       // de entrada de página en toda la familia de apps.
       keyframes: {
