@@ -1,5 +1,5 @@
-export type Accent = 'blue' | 'purple' | 'green'
-export type Glyph = 'bank' | 'ticket' | 'sync'
+export type Accent = 'blue' | 'purple' | 'green' | 'teal'
+export type Glyph = 'bank' | 'ticket' | 'sync' | 'scales'
 
 export type PlatformEntry = {
   type: 'platform'
@@ -33,6 +33,15 @@ export const platforms: PlatformEntry[] = [
     status: 'operativo',
     accent: 'blue',
     icon: 'bank',
+  },
+  {
+    type: 'platform',
+    name: 'Conciliaciones Bancarias',
+    description: 'Cuadre mensual de los bancos contra el Sistema Financiero.',
+    url: 'https://bank-reconciliation-gamma.vercel.app/',
+    status: 'operativo',
+    accent: 'teal',
+    icon: 'scales',
   },
   {
     type: 'platform',

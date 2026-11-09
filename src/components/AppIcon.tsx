@@ -6,6 +6,7 @@ const GRADIENT_CLASSES: Record<Accent, string> = {
   blue: 'from-sky-400 to-blue-600',
   purple: 'from-fuchsia-400 to-purple-600',
   green: 'from-emerald-400 to-green-600',
+  teal: 'from-teal-400 to-cyan-600',
 }
 
 // Segundo tono (más oscuro) del mismo acento, usado para detalles finos
@@ -15,6 +16,7 @@ const DETAIL_CLASSES: Record<Accent, string> = {
   blue: 'text-blue-600',
   purple: 'text-purple-600',
   green: 'text-green-600',
+  teal: 'text-cyan-600',
 }
 
 function GlyphIcon({ icon, detailClass }: { icon: Glyph; detailClass: string }) {
@@ -40,6 +42,24 @@ function GlyphIcon({ icon, detailClass }: { icon: Glyph; detailClass: string }) 
             stroke="currentColor"
             strokeWidth="1.6"
             strokeDasharray="2 2.2"
+          />
+        </svg>
+      )
+    // Una balanza: el cuadre es exactamente eso — los dos lados en cero.
+    case 'scales':
+      return (
+        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none">
+          <path
+            d="M12 4.2v15M6.6 19.8h10.8M4.4 8.4h15.2"
+            stroke="white"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+          <path
+            d="M4.4 8.4 1.9 14h5l-2.5-5.6ZM19.6 8.4 17.1 14h5l-2.5-5.6Z"
+            stroke="white"
+            strokeWidth="1.6"
+            strokeLinejoin="round"
           />
         </svg>
       )
