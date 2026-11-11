@@ -1,24 +1,21 @@
 import { useEffect, useState } from 'react'
 
+// Fecha y hora reales del navegador. Se refresca cada 30 s: la hora va en
+// minutos, no hace falta más.
 export default function Clock() {
   const [now, setNow] = useState(() => new Date())
 
   useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 1000)
+    const id = setInterval(() => setNow(new Date()), 30_000)
     return () => clearInterval(id)
   }, [])
 
-  const time = now.toLocaleTimeString('es-CO', { hour12: false })
-  const date = now
-    .toLocaleDateString('es-CO', { weekday: 'short', day: 'numeric', month: 'short' })
-    .replace(',', '')
-    .replace('.', '')
+  const date = now.toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long' })
+  const time = now.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' })
 
   return (
-    <span className="tabular-nums text-gray-500">
-      <span>{date}</span>
-      <span className="mx-1.5 text-gray-300">·</span>
-      <span className="font-semibold text-gray-800">{time}</span>
+    <span className="text-[13px] tabular-nums text-[#3a5fae]">
+      {date.charAt(0).toUpperCase() + date.slice(1)} · {time}
     </span>
   )
 }

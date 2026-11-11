@@ -1,66 +1,55 @@
-export type Accent = 'blue' | 'purple' | 'green' | 'teal'
-export type Glyph = 'bank' | 'ticket' | 'sync' | 'scales'
+// Ícono de línea de cada herramienta. El dibujo vive en ToolIcon.tsx.
+export type Glyph = 'chart' | 'scales' | 'document' | 'person-minus' | 'ticket'
 
-export type PlatformEntry = {
-  type: 'platform'
+export type ToolEntry = {
   name: string
+  // Empieza con un verbo: lo que la persona viene a hacer, no lo que es la herramienta.
   description: string
   url: string
-  status: 'operativo' | 'mantenimiento' | 'caido'
-  accent: Accent
   icon: Glyph
+  // Línea opcional bajo la descripción (un recordatorio operativo real, nunca un estado inventado).
+  note?: string
 }
 
-export type AutomationEntry = {
-  type: 'automation'
-  name: string
-  description: string
-  status: 'corriendo' | 'detenida' | 'error'
-  accent: Accent
-  icon: Glyph
-}
+// Agregar una herramienta es agregar una entrada en el grupo que le corresponde.
+// Agregar un grupo nuevo es agregar un arreglo aquí y su sección en App.tsx.
 
-export type RegistryEntry = PlatformEntry | AutomationEntry
-
-// Agregar un nuevo sistema es agregar una entrada aquí — el layout
-// (tarjeta de plataforma vs. tarjeta de estado) se resuelve solo por "type".
-export const platforms: PlatformEntry[] = [
+export const automatizaciones: ToolEntry[] = [
   {
-    type: 'platform',
     name: 'Plataforma Financiera',
-    description: 'Transacciones, cruces bancarios y conciliación de cartera.',
+    description: 'Identificar pagos y revisar la cartera',
     url: 'https://financial-platform-gules.vercel.app/',
-    status: 'operativo',
-    accent: 'blue',
-    icon: 'bank',
+    icon: 'chart',
+    note: 'Archivos antes de las 9:30',
   },
   {
-    type: 'platform',
     name: 'Conciliaciones Bancarias',
-    description: 'Cuadre mensual de los bancos contra el Sistema Financiero.',
+    description: 'Conciliar los bancos del mes',
     url: 'https://bank-reconciliation-gamma.vercel.app/',
-    status: 'operativo',
-    accent: 'teal',
     icon: 'scales',
   },
   {
-    type: 'platform',
-    name: 'Mesa de Tickets',
-    description: 'Casos de soporte y seguimiento para el área financiera.',
-    url: 'https://support-tickets-delta.vercel.app/',
-    status: 'operativo',
-    accent: 'purple',
-    icon: 'ticket',
+    name: 'Solicitudes',
+    description: 'Gestionar facturas, notas crédito y órdenes de matrícula',
+    url: 'https://invoice-request-chi.vercel.app/',
+    icon: 'document',
   },
 ]
 
-export const automations: AutomationEntry[] = [
+export const registros: ToolEntry[] = [
   {
-    type: 'automation',
-    name: 'Cruce de Cartera',
-    description: 'Lee extractos, concilia contra cartera y sincroniza cada 5 minutos.',
-    status: 'corriendo',
-    accent: 'green',
-    icon: 'sync',
+    name: 'Registro de Bajas',
+    description: 'Registrar y consultar bajas',
+    url: 'https://registrodebajas.lovable.app/',
+    icon: 'person-minus',
+  },
+]
+
+export const soporte: ToolEntry[] = [
+  {
+    name: 'Mesa de Tickets',
+    description: 'Abrir un caso o atender uno',
+    url: 'https://support-tickets-delta.vercel.app/',
+    icon: 'ticket',
   },
 ]

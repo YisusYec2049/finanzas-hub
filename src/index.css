@@ -4,10 +4,140 @@
 
 @layer base {
   html {
-    @apply scroll-smooth font-sans;
+    @apply scroll-smooth font-sans antialiased;
   }
 
   body {
-    @apply bg-slate-50 text-gray-900 antialiased;
+    @apply bg-white text-brand-900;
+  }
+}
+
+/*
+  Movimiento del hub. Todo dura ~0,5 s y usa la misma curva suave: se
+  siente como luz que cambia, no como algo que parpadea.
+*/
+@layer components {
+  /* Entrada: cada bloque sube un poco al cargar, uno tras otro. */
+  .rise {
+    animation: rise 0.9s cubic-bezier(0.22, 0.8, 0.24, 1) both;
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .tool-card,
+  .tool-bar {
+    position: relative;
+    overflow: hidden;
+    transition:
+      transform 0.55s cubic-bezier(0.22, 0.8, 0.24, 1),
+      box-shadow 0.55s ease,
+      border-color 0.55s ease,
+      background-color 0.55s ease,
+      opacity 0.55s ease,
+      filter 0.55s ease;
+  }
+
+  /* Línea azul que se dibuja arriba de la tarjeta señalada. */
+  .tool-card::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.7s cubic-bezier(0.22, 0.8, 0.24, 1);
+  }
+
+  .tool-card:hover {
+    transform: translateY(-4px);
+    background-color: #ffffff;
+    border-color: #93c5fd;
+    box-shadow: 0 26px 50px -26px rgba(29, 78, 216, 0.4);
+  }
+
+  .tool-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .tool-bar:hover {
+    background-color: #ffffff;
+    border-color: #93c5fd;
+  }
+
+  /* El ícono gigante y tenue en la esquina. */
+  .tool-watermark {
+    position: absolute;
+    right: -30px;
+    bottom: -30px;
+    color: #dbeafe;
+    pointer-events: none;
+    transition:
+      color 0.6s ease,
+      transform 0.8s cubic-bezier(0.22, 0.8, 0.24, 1);
+  }
+
+  .tool-card:hover .tool-watermark {
+    color: #bfdbfe;
+    transform: scale(1.06) rotate(-6deg);
+  }
+
+  .tool-arrow {
+    opacity: 0;
+    transform: translate(-4px, 4px);
+    transition:
+      opacity 0.4s ease,
+      transform 0.5s cubic-bezier(0.22, 0.8, 0.24, 1);
+  }
+
+  .tool-card:hover .tool-arrow,
+  .tool-bar:hover .tool-arrow,
+  .tool-card:focus-visible .tool-arrow,
+  .tool-bar:focus-visible .tool-arrow {
+    opacity: 1;
+    transform: none;
+  }
+
+  .tool-card:focus-visible,
+  .tool-bar:focus-visible {
+    outline: 2px solid #1d4ed8;
+    outline-offset: 3px;
+  }
+
+  /*
+    El efecto foco: si dentro de .stage hay una tarjeta señalada (:has),
+    todas las que NO están señaladas se apagan. El punto focal lo decide
+    quien entra, no el diseño.
+  */
+  .stage:has(.tool-card:hover, .tool-bar:hover) :is(.tool-card, .tool-bar):not(:hover) {
+    opacity: 0.4;
+    filter: saturate(0.5);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rise {
+      animation: none;
+    }
+
+    .tool-card,
+    .tool-card::before,
+    .tool-bar,
+    .tool-watermark,
+    .tool-arrow {
+      transition: none;
+    }
+
+    .tool-card:hover {
+      transform: none;
+    }
   }
 }
