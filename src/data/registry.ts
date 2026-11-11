@@ -16,7 +16,7 @@ export type ToolEntry = {
 
 export const automatizaciones: ToolEntry[] = [
   {
-    name: 'Plataforma Financiera',
+    name: 'Cruce de Cartera',
     description: 'Identificar pagos y revisar la cartera',
     url: 'https://financial-platform-gules.vercel.app/',
     icon: 'chart',
